@@ -1,3 +1,5 @@
+package domain;
+
 public class NaturalNumber {
     private final int value;
 

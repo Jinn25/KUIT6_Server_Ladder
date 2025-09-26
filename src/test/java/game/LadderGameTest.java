@@ -1,9 +1,17 @@
+package game;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import creator.CustomLadderCreator;
+import domain.Ladder;
+import domain.LadderSize;
+import domain.NaturalNumber;
+import domain.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("LadderGame 단위 테스트")
+@DisplayName("game.LadderGame 단위 테스트")
 class LadderGameTest {
 
     private Ladder ladder;
@@ -11,11 +19,16 @@ class LadderGameTest {
 
     @BeforeEach
     void setUp() {
-        // 기본 테스트용 사다리와 게임 생성
-        ladder = new Ladder(new NaturalNumber(5), new NaturalNumber(4));
-        ladder.drawLine(new NaturalNumber(1), new NaturalNumber(2));
-        ladder.drawLine(new NaturalNumber(3), new NaturalNumber(1));
-        ladder.drawLine(new NaturalNumber(4), new NaturalNumber(3));
+        //Given: 5행 4명의 참가자가 있는 사다리
+        LadderSize size = new LadderSize(5, 4);
+        CustomLadderCreator creator = new CustomLadderCreator(size);
+
+        //라인 그리기
+        creator.drawLine(0, 1);
+        creator.drawLine(2, 0);
+        creator.drawLine(3, 2);
+
+        ladder = new Ladder(size, creator.getRows());
         game = new LadderGame(ladder);
     }
 
@@ -31,7 +44,9 @@ class LadderGameTest {
     @Test
     @DisplayName("시작 위치 범위 초과 시 오류 발생")
     void playRangeException() {
-        Ladder smallLadder = new Ladder(new NaturalNumber(3), new NaturalNumber(3));
+        LadderSize smallSize = new LadderSize(3, 3);
+        CustomLadderCreator smallCreator = new CustomLadderCreator(smallSize);
+        Ladder smallLadder = new Ladder(smallSize, smallCreator.getRows());
         LadderGame smallGame = new LadderGame(smallLadder);
 
         assertThrows(IllegalArgumentException.class,

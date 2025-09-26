@@ -1,9 +1,14 @@
+package domain;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import domain.NaturalNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("NaturalNumber 테스트")
+@DisplayName("domain.NaturalNumber 테스트")
 class NaturalNumberTest {
+
     @Test
     @DisplayName("0 이하의 숫자로 생성하면 예외")
     void negativeAndZeroException() {
